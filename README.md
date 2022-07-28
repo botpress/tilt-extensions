@@ -1,2 +1,2 @@
 # tilt-extensions
-Tilt extensions of common tilt patterns
+> Tilt extensions repository for common tilt patterns
