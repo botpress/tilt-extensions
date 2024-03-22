@@ -6,35 +6,24 @@ def dotenv_watch(dot_env_path='.env'):
 
   watch_file(dot_env_path)
 
-conf = {}
-
-def define_config(key, default, type='string'):
-  conf[key] = {
-    'key': key,
-    'type': type,
-    'default': default,
-  }
+def get_config(cfg, key, default=None, type='string'):
+  env_name = key.upper().replace('-', '_')
+  default_value = os.environ.get(env_name, default)
+  value = cfg.get(key, default_value)
 
   if type == 'string':
-    config.define_string(key)
-    return
-
-  if type == 'string_list':
-    config.define_string_list(key)
-    return
-
-  if type == 'bool':
-    config.define_bool(key)
-    return
+    return value
 
   if type == 'int':
-    config.define_string(key)
-    return
+    return int(value)
+
+  if type == 'bool':
+    return value
 
   fail('Unknown type: %s' % type)
 
-def get_config(key):
-  if key not in conf:
-    fail('Unknown config key: %s' % key)
-
-  return conf[key]
+def dict_merge(a, b):
+  c = {}
+  c.update(a)
+  c.update(b)
+  return c
