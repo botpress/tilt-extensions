@@ -1,8 +1,6 @@
 load('ext://dotenv', 'dotenv')
 
-def dotenv(envfile='.env'):
-  dot_env_path = envfile
-
+def dotenv_watch(dot_env_path='.env'):
   if os.path.exists(dot_env_path):
     dotenv()
 
