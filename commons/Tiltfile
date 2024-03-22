@@ -32,3 +32,9 @@ def define_config(key, default, type='string'):
     return
 
   fail('Unknown type: %s' % type)
+
+def get_config(key):
+  if key not in conf:
+    fail('Unknown config key: %s' % key)
+
+  return conf[key]
