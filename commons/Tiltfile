@@ -27,3 +27,6 @@ def dict_merge(a, b):
   c.update(a)
   c.update(b)
   return c
+
+def bool_to_string(value):
+  return 'true' if value else 'false'
