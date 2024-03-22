@@ -49,15 +49,21 @@ def dict_merge(a, b):
 def bool_to_string(value):
   return 'true' if value else 'false'
 
+true_values = ['true', '1', 'yes', 'on', 'y', 't', 'enabled', 'enable', 'active', 'activated']
+false_values = ['false', '0', 'no', 'off', 'n', 'f', 'disabled', 'disable', 'inactive', 'deactivated']
+
 def string_to_bool(value):
+  if type(value) != "string":
+    fail('Invalid string value: %s' % value)
+
   v = value.lower()
 
-  is_true = v == 'true' or v == '1' or v == 'yes' or v == 'on' or v == 'y' or v == 't' or v == 'enabled' or v == 'enable' or v == 'active' or v == 'activated'
+  is_true = v in true_values
 
   if is_true:
     return True
 
-  is_false = v == 'false' or v == '0' or v == 'no' or v == 'off' or v == 'n' or v == 'disabled' or v == 'disable' or v == 'inactive' or v == 'deactivated'
+  is_false = v in false_values
 
   if is_false:
     return False

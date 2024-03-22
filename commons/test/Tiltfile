@@ -1,0 +1,18 @@
+load('../Tiltfile', 'string_to_bool')
+load('../Tiltfile', 'bool_to_string')
+
+# Noop resource allows us to run the test without any real resources
+local_resource(name="noop", cmd='echo \'Empty resource\'')
+
+def expect(actual, expected):
+  if actual != expected:
+    fail("Expected %s, got %s" % (actual, expected))
+
+## Test string_to_bool
+expect(string_to_bool('true'), True)
+expect(string_to_bool('t'), True)
+expect(string_to_bool('f'), False)
+
+## Test bool_to_string
+expect(bool_to_string(True), 'true')
+expect(bool_to_string(False), 'false')
