@@ -5,3 +5,30 @@ def dotenv_watch(dot_env_path='.env'):
     dotenv()
 
   watch_file(dot_env_path)
+
+conf = {}
+
+def define_config(key, default, type='string'):
+  conf[key] = {
+    'key': key,
+    'type': type,
+    'default': default,
+  }
+
+  if type == 'string':
+    config.define_string(key)
+    return
+
+  if type == 'string_list':
+    config.define_string_list(key)
+    return
+
+  if type == 'bool':
+    config.define_bool(key)
+    return
+
+  if type == 'int':
+    config.define_string(key)
+    return
+
+  fail('Unknown type: %s' % type)
