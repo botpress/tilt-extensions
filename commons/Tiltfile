@@ -36,7 +36,7 @@ def define_config(key, default=None, type='string', required=False):
       return int(value)
 
     if type == 'bool':
-      return value
+      return bool(value)
 
   return get_value
 
