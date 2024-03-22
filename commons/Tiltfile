@@ -6,10 +6,13 @@ def dotenv_watch(dot_env_path='.env'):
 
   watch_file(dot_env_path)
 
-def get_config(cfg, key, default=None, type='string'):
+def get_config(cfg, key, default=None, type='string', required=False):
   env_name = key.upper().replace('-', '_')
   default_value = os.environ.get(env_name, default)
   value = cfg.get(key, default_value)
+
+  if required and value is None:
+    fail('Missing required config: %s' % key)
 
   if type == 'string':
     return value
