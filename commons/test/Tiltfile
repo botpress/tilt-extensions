@@ -1,8 +1,12 @@
 load('../Tiltfile', 'string_to_bool')
 load('../Tiltfile', 'bool_to_string')
+load('../Tiltfile', 'default_resources')
+load('../Tiltfile', 'set_mode')
+load('../Tiltfile', 'dict_merge')
 
-# Noop resource allows us to run the test without any real resources
-local_resource(name="noop", cmd='echo \'Empty resource\'')
+default_resources()
+
+local_resource(name="test", cmd='echo \'Empty resource\'')
 
 def expect(actual, expected):
   if actual != expected:
@@ -16,3 +20,12 @@ expect(string_to_bool('f'), False)
 ## Test bool_to_string
 expect(bool_to_string(True), 'true')
 expect(bool_to_string(False), 'false')
+
+## Test set_mode
+expect(set_mode({ 'dev': ['test'] }, 'dev'), ['test'])
+expect(set_mode({}, 'all'), [])
+expect(set_mode({}, 'noop'), ['noop'])
+
+## Test dict_merge
+expect(dict_merge({ 'a': 1 }, { 'b': 2 }), { 'a': 1, 'b': 2 })
+expect(dict_merge({ 'a': 1 }, { 'a': 2 }), { 'a': 2 })

@@ -40,6 +40,32 @@ def define_config(key, default=None, type='string', required=False):
 
   return get_value
 
+def default_resources():
+  # Noop resource allows us to have a mode with no resource enabled
+  local_resource(name="noop", cmd='echo \'Empty resource\'')
+
+def _get_mode_resources(modes, mode='default'):
+  if mode == 'noop':
+    return ['noop']
+
+  if mode == 'all' or mode == 'full':
+    return []
+
+  if mode == 'default' and not 'default' in modes:
+    return []
+
+  if mode not in modes:
+    fail('mode must be one of %s' % modes.keys())
+
+  return modes[mode]
+
+def set_mode(modes, mode='default', resources=[]):
+  mode_resources = _get_mode_resources(modes, mode)
+  enabled_resources = resources + mode_resources
+  config.clear_enabled_resources()
+  config.set_enabled_resources(enabled_resources)
+  return enabled_resources
+
 def dict_merge(a, b):
   c = {}
   c.update(a)
