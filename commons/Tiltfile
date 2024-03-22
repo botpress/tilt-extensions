@@ -15,7 +15,7 @@ def define_config(key, default=None, type='string', required=False):
   if type == 'string':
     config.define_string(key)
   elif type == 'int':
-    config.define_int(key)
+    config.define_string(key)
   elif type == 'bool':
     config.define_bool(key)
   elif type == 'string_list':
