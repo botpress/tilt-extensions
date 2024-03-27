@@ -95,3 +95,6 @@ def string_to_bool(value):
     return False
 
   fail('Invalid boolean value: %s' % value)
+
+def write_file(filename, content):
+  local('echo "$DATA_CONTENT" > %s' % filename, quiet=True, env={'DATA_CONTENT': content})
